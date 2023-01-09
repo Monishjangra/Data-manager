@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{normal/base1::layout(~{::section})}">
+<head>
+<meta charset="ISO-8859-1">
+<title>Dashboard</title>
+</head>
+<body>
+
+	<section class="banners d-flex justify-content-center align-items-center">
+        <div class="card mr-4 ml-4">
+          <div class="card-body">
+            <h1 class="text-center">Update Contact</h1>
+  <!-- error success message -->
+            <div th:if="${message}" class="alert alert-success" role="alert">
+              <span th:text="${message}"></span>
+            </div>
+            <hr/>
+            <br/>
+            <div class="container-fluid mt-1">
+              <div class="row">
+                <div class="col-md-10 offset-md-1">
+  <!-- form -->
+                  <form
+                    action="#"
+                    th:action="@{/user/update-process}"
+                    class="mt-2"
+                    th:object="${contact}"
+                    method="POST"
+                  >
+                    <input type="hidden" th:value="${contact.cId}" name="cId"/>
+                  
+  <!-- Name -->     
+                    <div class="input-group mt-3">
+                      <div class="input-group-prepend">
+                        <div class="input-group-text">
+                          <i>Name</i>
+                        </div>
+                      </div>
+                      <input th:value="${contact.name}" required
+                        type="text"
+                        id="name"
+                        name="name"
+                        placeholder="Enter Name"
+                        class="form-control"
+                      />
+                    </div>
+  <!-- email -->
+                    <div class="input-group mt-3">
+                      <div class="input-group-prepend">
+                        <div class="input-group-text">
+                          <i>Email</i>
+                        </div>
+                      </div>
+                      <input th:value="${contact.email}"
+                        type="email"
+                        id="email"
+                        name="email"
+                        placeholder="Enter Email"
+                        class="form-control"
+                      />
+                    </div>
+  <!-- work -->
+                    <div class="input-group mt-3">
+                      <div class="input-group-prepend">
+                        <div class="input-group-text">
+                          <i>Work</i>
+                        </div>
+                      </div>
+                      <input th:value="${contact.work}"
+                        type="text"
+                        id="work"
+                        name="work"
+                        placeholder="Enter designation"
+                        class="form-control"
+                      />
+                    </div>
+  <!-- phone no. -->
+                    <div class="input-group mt-3">
+                      <div class="input-group-prepend">
+                        <div class="input-group-text">
+                          <i>Phone</i>
+                        </div>
+                      </div>
+                      <input th:value="${contact.phone}" required
+                        type="tel"
+                        id="phone"
+                        name="phone"
+                        placeholder="Enter Phone no."
+                        class="form-control"
+                      />
+                    </div>
+                    <div class="container text-center mt-3">
+                      <a class="mr-3" th:href="@{/user/show-contacts/0}">Back</a>
+                      <button type="submit" class="btn btn-outline-primary">
+                        Update Contact
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+</body>
+</html>

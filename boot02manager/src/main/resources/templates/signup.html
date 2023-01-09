@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{base::layout(~{::section})}">
+<head>
+<meta charset="ISO-8859-1">
+<title>About</title>
+</head>
+<body>
+
+	<section class="banners d-flex justify-content-center align-items-center">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-6 offset-md-3">
+					<div class="my-card">
+						<h1 class="text-center">SignUp Here</h1>
+<!-- alert message -->
+						<div th:if="${message}" th:classappend="${message}"
+							class="alert alert-info" role="alert">
+							<p class="text-center" th:text="${message}"></p>
+							<!-- <th:block th:text="${#('message')}"></th:block> -->
+						</div>
+<!-- form -->
+						<form th:action="@{/do_register}" method="post"
+							th:object="${user}">
+
+<!-- name field -->
+
+							<div class="form-group">
+								<label for="name_field">Your name</label> <input name="name"
+									type="text" class="form-control" id="name_field"
+									aria-describedby="emailHelp" placeholder="Enter name" required
+									th:value="${user.name}" />
+
+							</div>
+
+<!-- email field -->
+							<div class="form-group">
+								<label for="email-field">Your email</label> <input name="email"
+									type="email" class="form-control" id="email-field"
+									aria-describedby="emailHelp" placeholder="Enter email" required
+									th:value="${user.email}">
+							</div>
+
+<!-- password field -->
+							<div class="form-group">
+								<label for="password-field">Your password</label> <input
+									name="password" type="password" class="form-control"
+									id="password-field" aria-describedby="emailHelp"
+									placeholder="Enter password" required>
+							</div>
+
+ <!-- about field -->
+							<div class="form-group">
+								<textarea name="about" rows="5" class="form-control"
+									placeholder="write something" th:value="${user.about}"></textarea>
+							</div>
+
+<!-- button field -->
+							<div class="container text-center">
+								<button type="submit" class="btn btn-primary text-white ">
+									Submit</button>
+								<button type="reset" class="btn bg-primary text-white ">
+									Reset</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+</body>
+</html>

@@ -13,25 +13,26 @@ import jakarta.validation.Valid;
 
 public interface IHomeController {
 
-    @GetMapping("/home")
+	@GetMapping("/home")
 	public String home(Model model);
 
-    @GetMapping("/about")
+	@GetMapping("/about")
 	public String about(Model model);
 
-    @GetMapping("/signup")
+	@GetMapping("/signup")
 	public String signUp(Model model);
 
-    @PostMapping("/do_register")
-	public String handler(@Valid @ModelAttribute("user") User user, Model model,BindingResult result);
-    
-    @GetMapping("/login")
+	@PostMapping("/do_register")
+	public String handler(@Valid @ModelAttribute User user, Model model, BindingResult result);
+
+	@GetMapping("/login")
 	public String customLogIn(Model model);
 
-    @GetMapping("/forgot")
+	@GetMapping("/forgot")
 	public String forgot(Model model);
 
 	@PostMapping("/password-changed")
-	public String forgotPassword(@RequestParam("email") String email,@RequestParam("name") String name,@RequestParam("id") int id,@RequestParam("newPassword") String newPassword);
+	public String forgotPassword(@RequestParam String email, @RequestParam String name, @RequestParam int id,
+			@RequestParam String newPassword);
 
 }

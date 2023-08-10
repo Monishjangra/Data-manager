@@ -16,83 +16,86 @@ import jakarta.validation.Valid;
 @Controller
 public class HomeController implements IHomeController {
 
-	 @Autowired
-	 private UserRepository userRepository;
+	@Autowired
+	private UserRepository userRepository;
 
-	 @Autowired
-	 private BCryptPasswordEncoder password;
-	 
-// for home 
-	 @Override
-	 public String home(Model model) {
+	@Autowired
+	private BCryptPasswordEncoder password;
+
+	// for home
+	@Override
+	public String home(Model model) {
 		model.addAttribute("title", "Home Manager");
 		return "home";
 	}
-// for example
-	 @Override
+
+	// for example
+	@Override
 	public String about(Model model) {
 		model.addAttribute("title", "about manager");
 		return "about";
 	}
-// for signup
-	 @Override
+
+	// for signup
+	@Override
 	public String signUp(Model model) {
 		model.addAttribute("title", "Register manager");
 		model.addAttribute("user", new User());
 		return "signup";
 	}
-// for signup process
-	 @Override
-	public String handler(@Valid @ModelAttribute("user") User user, Model model,BindingResult result) {
+
+	// for signup process
+	@Override
+	public String handler(@Valid @ModelAttribute User user, Model model, BindingResult result) {
 		try {
-			if(result.hasErrors())
-			{
-				System.out.println("Error "+result.toString());
-				model.addAttribute("user",user);
+			if (result.hasErrors()) {
+				System.out.println("Error " + result.toString());
+				model.addAttribute("user", user);
 				return "signup";
-				
+
 			}
 			user.setRole("ROLE_USER");
 			user.setPassword(password.encode(user.getPassword()));
-		System.out.println("User: " +user);
-		
-		userRepository.save(user);
-		System.out.println("Successfully added.....");
-		model.addAttribute("message", "Successfully added..");
-		return "signup";
-		}
-		catch (Exception e) {
+			System.out.println("User: " + user);
+
+			userRepository.save(user);
+			System.out.println("Successfully added.....");
+			model.addAttribute("message", "Successfully added..");
+			return "signup";
+		} catch (Exception e) {
 			e.printStackTrace();
-			model.addAttribute("message", "Something went wrong!!" +e.getMessage());
+			model.addAttribute("message", "Something went wrong!!" + e.getMessage());
 			return "signup";
 		}
 	}
-// for login
+
+	// for login
 	public String customLogIn(Model model) {
 		model.addAttribute("title", "Login Manager");
 		return "login";
 	}
-// for forgot password
+
+	// for forgot password
 	@Override
 	public String forgot(Model model) {
 		model.addAttribute("title", "Forgot Password");
 		return "forgot";
 	}
-// for process forgot password
+
+	// for process forgot password
 	@Override
-	public String forgotPassword(@RequestParam("email") String email,
-								@RequestParam("name") String name,
-								@RequestParam("id") int id,
-								@RequestParam("newPassword") String newPassword) {
+	public String forgotPassword(@RequestParam String email,
+			@RequestParam String name,
+			@RequestParam int id,
+			@RequestParam String newPassword) {
 		User user = userRepository.getUserByUsername(email);
-		if(user.getName().equals(name) && user.getId()==id){
+		if (user.getName().equals(name) && user.getId() == id) {
 			System.out.println(user.getName());
 			System.out.println(user.getId());
 			user.setPassword(password.encode(newPassword));
 			userRepository.save(user);
 			return "redirect:/login";
-		}
-		else{
+		} else {
 			return "redirect:/forgot";
 		}
 	}

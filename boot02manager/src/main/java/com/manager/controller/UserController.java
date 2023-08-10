@@ -71,7 +71,7 @@ public class UserController implements IUserController {
 
 	// for view contacts
 	@Override
-	public String showContact(@PathVariable("page") Integer page, Model model, Principal principal) {
+	public String showContact(@PathVariable Integer page, Model model, Principal principal) {
 		model.addAttribute("title", "View contact");
 		String name = principal.getName();
 
@@ -86,7 +86,7 @@ public class UserController implements IUserController {
 
 	// for particular contact
 	@Override
-	public String contactDetail(@PathVariable("id") Integer id, Model model, Principal principal) {
+	public String contactDetail(@PathVariable Integer id, Model model, Principal principal) {
 		Optional<Contact> contactId = contactRepository.findById(id);
 		Contact contact = contactId.get();
 
@@ -151,8 +151,8 @@ public class UserController implements IUserController {
 	private BCryptPasswordEncoder bEncoder;
 
 	@Override
-	public String changePassword(@RequestParam("oldPassword") String oldPassword,
-			@RequestParam("newPassword") String newPassword,
+	public String changePassword(@RequestParam String oldPassword,
+			@RequestParam String newPassword,
 			Principal principal) {
 		User user = userRepository.getUserByUsername(principal.getName());
 

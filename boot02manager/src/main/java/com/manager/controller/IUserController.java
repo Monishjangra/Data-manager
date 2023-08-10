@@ -18,20 +18,20 @@ public interface IUserController {
 	@GetMapping("/dashboard")
 	public String DashBoard(Model model, Principal principal);
 
-	@GetMapping("/add-contact")
+	@GetMapping("/add-data")
 	public String addContact(Model model);
 
-	@PostMapping("/process-contact")
+	@PostMapping("/process-data")
 	public String processContact(@ModelAttribute Contact contact, Principal principal, Model model);
 
-	@GetMapping("/show-contacts/{page}")
+	@GetMapping("/show-data/{page}")
 	public String showContact(@PathVariable("page") Integer page, Model model, Principal principal);
 
 	@GetMapping("/contact-detail/{id}")
-	public String contactDetail(@PathVariable("id") Integer id,Model model, Principal principal);
+	public String contactDetail(@PathVariable("id") Integer id, Model model, Principal principal);
 
 	@GetMapping("/delete/{cid}")
-	public String deleteContact(@PathVariable("cid") Integer cid,Model model, Principal principal);
+	public String deleteContact(@PathVariable("cid") Integer cid, Model model, Principal principal);
 
 	@PostMapping("/update/{cid}")
 	public String updateContact(@PathVariable("cid") Integer id, Model model);
@@ -46,5 +46,6 @@ public interface IUserController {
 	public String setting(Model model);
 
 	@PostMapping("/change-password")
-	public String changePassword(@RequestParam("oldPassword") String oldPassword, @RequestParam("newPassword") String newPassword, Principal principal);
+	public String changePassword(@RequestParam("oldPassword") String oldPassword,
+			@RequestParam("newPassword") String newPassword, Principal principal);
 }

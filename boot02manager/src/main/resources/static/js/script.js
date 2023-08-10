@@ -21,7 +21,7 @@ const search=()=>{
     }
     else{
         console.log(query);
-        let url=`http://localhost:8081/search/${query}`;
+        let url=`http://localhost:8080/search/${query}`;
         fetch(url)
             .then((response) =>{
                 return response.json();
